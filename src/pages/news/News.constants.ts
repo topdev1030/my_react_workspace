@@ -1,0 +1,1 @@
+export const TRENDING_VULNERABILITIES_COUNT = 5;

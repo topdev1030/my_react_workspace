@@ -1,0 +1,11 @@
+.pdfViewerV2Button .ant-modal-content {
+  padding: 0 !important;
+}
+
+.pdfViewerV2Button .ant-modal-close {
+  top: 0;
+  right: -35px;
+  border-radius: 50%;
+  color: white;
+  background-color: red;
+}

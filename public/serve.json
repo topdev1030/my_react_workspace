@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/news", "destination": "/index.html" },
+    { "source": "/signup", "destination": "/index.html" },
+    { "source": "/intel-hub/vulnerabilities", "destination": "/index.html" },
+    { "source": "/intel-hub/reports", "destination": "/index.html" },
+    { "source": "/intel-hub/uploads", "destination": "/index.html" },
+    { "source": "/admin/reports", "destination": "/index.html" },
+    { "source": "/admin/uploads", "destination": "/index.html" },
+    { "source": "/dashboard", "destination": "/index.html" }
+  ]
+}
