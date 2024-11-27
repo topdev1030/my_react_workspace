@@ -6,7 +6,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     textAlign: "center",
     color: "#6B6B6B",
     backgroundColor: "transparent",
-    marginTop: "15px",
+    marginTop: "10px",
   },
 }));
 

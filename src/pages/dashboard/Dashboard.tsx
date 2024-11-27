@@ -1,10 +1,3 @@
-import {
-  DotChartOutlined,
-  AlertOutlined,
-  NotificationOutlined,
-  SafetyOutlined,
-  ArrowRightOutlined,
-} from "@ant-design/icons";
 import cx from "clsx";
 
 import { Col, Row, Image } from "antd";
@@ -28,6 +21,7 @@ import dashboardIcon_1 from "../../static/images/dashboard_icons_1.png";
 import dashboardIcon_2 from "../../static/images/dashboard_icons_2.png";
 import dashboardIcon_3 from "../../static/images/dashboard_icons_3.png";
 import dashboardIcon_4 from "../../static/images/dashboard_icons_4.png";
+import viewArrowIcon from "../../static/images/ri_arrow-up-line.png";
 
 const { Title, Text } = Typography;
 
@@ -37,6 +31,7 @@ const Dashboard = () => {
   const statsData = [
     {
       title: "LOW",
+      badge: false,
       subtitle: "Dark web chatter (Volume)",
       icon: (
         <Image
@@ -55,6 +50,7 @@ const Dashboard = () => {
     },
     {
       title: stats.thirdAlerts.toLocaleString(),
+      badge: false,
       subtitle: "3rd and 4th party alerts",
       icon: (
         <Image
@@ -69,6 +65,7 @@ const Dashboard = () => {
     },
     {
       title: stats.breachAlerts.toLocaleString(),
+      badge: false,
       subtitle: "Breach Alerts",
       icon: (
         <Image
@@ -83,6 +80,7 @@ const Dashboard = () => {
     },
     {
       title: stats.malwareFamilies.toLocaleString(),
+      badge: true,
       subtitle: "Malware Families",
       icon: (
         <Image
@@ -133,12 +131,92 @@ const Dashboard = () => {
       subtitle: "Data Privacy Tips for College Students",
       feed_date: "Cole Claybourn Nov. 19, 2024",
     },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
+    {
+      src: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      subtitle: "Data Privacy Tips for College Students",
+      feed_date: "Cole Claybourn Nov. 19, 2024",
+    },
   ];
 
   return (
     <div className={styles.root}>
-      <Row>
-        <Col span={18} className={styles.mainContainer}>
+      <Row style={{ flexFlow: "nowrap" }}>
+        <Col className={styles.mainContainer}>
           <Head />
 
           <div className={styles.statsContainer}>
@@ -152,7 +230,14 @@ const Dashboard = () => {
                     }}
                   >
                     <div className={styles.chatterContainer}>
-                      <Title className={styles.statsValue}>{item.title}</Title>
+                      <Title className={styles.statsValue}>
+                        {item.title}
+                        {item.badge ? (
+                          <sup className={styles.statsSup}>-5</sup>
+                        ) : (
+                          ""
+                        )}
+                      </Title>
                       {item.icon}
                     </div>
                     <Text type="secondary" className={styles.statsTitle}>
@@ -179,10 +264,21 @@ const Dashboard = () => {
                     <h3 className={styles.galanceSubTitle}>{card.title}</h3>
                     <h1 className={styles.galanceValue}>{card.value}</h1>
                     <div className={styles.galanceViewAll}>
-                      <span style={{ color: "#000", fontWeight: "bold" }}>
+                      <span
+                        style={{
+                          color: "#000",
+                          fontSize: 17,
+                          fontWeight: 600,
+                        }}
+                      >
                         View All
                       </span>
-                      <ArrowRightOutlined style={{ color: "#000" }} />
+                      <Image
+                        src={viewArrowIcon}
+                        width={20}
+                        preview={false}
+                        style={{ color: "#000" }}
+                      />
                     </div>
                   </Card>
                 </Col>
@@ -194,7 +290,15 @@ const Dashboard = () => {
         </Col>
 
         {/* Right Side bar */}
-        <Col span={6}>
+        <Col
+          style={{
+            backgroundColor: "#000000",
+            overflow: "auto",
+            right: 0,
+            width: "400px",
+            height: "100vh",
+          }}
+        >
           <div className={styles.rightBar}>
             <div className={styles.feedContainer}>
               <Text
@@ -225,7 +329,11 @@ const Dashboard = () => {
 
             <div className={styles.newsContainer}>
               {feedData.map((feed, index) => (
-                <Card className={styles.newsCard} key={index}>
+                <Card
+                  className={styles.newsCard}
+                  key={index}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className={styles.cardContainer}>
                     <Image
                       width={80}

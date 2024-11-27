@@ -1,11 +1,24 @@
 import { useState, useEffect, useCallback } from "react";
-import { Form, Row, Col, message, Select } from "antd";
+import {
+  Form,
+  Row,
+  Col,
+  message,
+  Select,
+  Divider,
+  Image,
+  Space,
+  Card,
+  PaginationProps,
+  Pagination as CardPagination,
+} from "antd";
 import type { TablePaginationConfig } from "antd/es/table/interface";
 import {
   HomeOutlined,
   DeleteOutlined,
   FilterOutlined,
   SendOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import debounce from "debounce";
 
@@ -29,6 +42,15 @@ import {
   messagesService,
 } from "@/services";
 
+// Import TransitionGroup for animation
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+
+// Icon Import
+import deleteIcon from "../../../static/images/deleteIcon.png";
+import sendIcon from "../../../static/images/sendIcon.png";
+import viewCardIcon from "../../../static/images/view.png";
+import viewIcon from "../../../static/images/view_expand.png";
+
 // redux
 import { useAppSelector } from "@/redux";
 import { selectAccessToken } from "@/redux/auth";
@@ -45,20 +67,154 @@ import { DEBOUNCE_WAIT, formLayout } from "./Messages.constants";
 import { mgmtServices } from "@/services/Mgmt/MgmtServices";
 import { useStyles } from "../reports/Reports.styles";
 import dayjs from "dayjs";
+import { FooterBar } from "@/components/organisms/footer";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const AdminMessages = () => {
-  const cardData = {
-    uploadDate: "10/17/2024",
-    customer: "Cyber Care System Pvt. Ltd.",
-    title: "Security Issue",
-    subject: "Message 3",
-    tags: "Lorem ipsum",
-    recommendations: "Lorem ipsum dolor",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  };
+  const messageCards = [
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+    {
+      uploadDate: "10/17/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      title: "Security Issue",
+      subject: "Message 3",
+      tags: "Lorem ipsum",
+      recommendations: "Lorem ipsum dolor",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    },
+  ];
+
+  const sort_message_options = [
+    {
+      key: "date",
+      value: "Date",
+    },
+    {
+      key: "message_type",
+      value: "Message Type",
+    },
+    {
+      key: "customer_name",
+      value: "Customer Name",
+    },
+    {
+      key: "message_name",
+      value: "Message Name",
+    },
+  ];
+
+  const [isTableView, setIsTableView] = useState<boolean>(true);
 
   const [customerOptions, setCustomerOptions] = useState<CustomerOption[]>([]);
   const [filters, setFilters] = useState<AllMessagesFilters>({});
@@ -277,6 +433,12 @@ const AdminMessages = () => {
 
   const columns: TableColumnType[] = [
     {
+      width: 150,
+      title: "Upload Date",
+      dataIndex: "created_at",
+      render: (value) => dayjs(value).format("MM/DD/YYYY"),
+    },
+    {
       title: "Customer",
       width: 200,
       dataIndex: "cust_id",
@@ -333,12 +495,6 @@ const AdminMessages = () => {
       ),
     },
     {
-      width: 150,
-      title: "Upload Date",
-      dataIndex: "created_at",
-      render: (value) => dayjs(value).format("MM/DD/YYYY"),
-    },
-    {
       title: "Description",
       dataIndex: "description",
       render: (text) => {
@@ -354,422 +510,367 @@ const AdminMessages = () => {
       ),
     },
     {
-      width: 70,
-      title: "Resend",
+      width: 140,
+      title: "Action",
       align: "center",
       render: (_, messageData) => (
-        <Popconfirm
-          title="Resend a message"
-          description="Are you sure to resend this message?"
-          placement="topRight"
-          okText="Yes"
-          cancelText="No"
-          onConfirm={() => onResend(messageData as Message)}
-        >
-          <Button shape="circle" icon={<SendOutlined />} />
-        </Popconfirm>
-      ),
-    },
-    {
-      width: 70,
-      title: "Delete",
-      align: "center",
-      render: (_, messageData) => (
-        <Popconfirm
-          title="Delete a message"
-          description="Are you sure to delete this message?"
-          placement="topRight"
-          okText="Yes"
-          cancelText="No"
-          onConfirm={() => onDelete(messageData as Message)}
-        >
-          <Button shape="circle" icon={<DeleteOutlined />} />
-        </Popconfirm>
+        <div className={styles.tdIconStyle}>
+          <div className={styles.reportPdfCol}>
+            <Popconfirm
+              title="Resend a message"
+              description="Are you sure to resend this message?"
+              placement="topRight"
+              okText="Yes"
+              cancelText="No"
+              onConfirm={() => onResend(messageData as Message)}
+            >
+              <Button
+                shape="circle"
+                style={{ border: 0, backgroundColor: "transparent" }}
+                icon={<Image preview={false} src={sendIcon} />}
+              />
+            </Popconfirm>
+            <Divider
+              style={{
+                borderColor: "#667075",
+                borderWidth: 2,
+                marginInline: 0,
+              }}
+              type="vertical"
+            />
+            <Popconfirm
+              title="Delete a message"
+              description="Are you sure to delete this message?"
+              placement="topRight"
+              okText="Yes"
+              cancelText="No"
+              onConfirm={() => onDelete(messageData as Message)}
+            >
+              <Button
+                shape="circle"
+                style={{ border: 0, backgroundColor: "transparent" }}
+                icon={<Image preview={false} src={deleteIcon} />}
+              />
+            </Popconfirm>
+          </div>
+        </div>
       ),
     },
   ];
 
-  const breadcrumbItems = [
-    {
-      href: "/dashboard",
-      title: <HomeOutlined />,
-    },
-    { title: "Admin" },
-    { title: "Messages" },
-  ];
+  const [currentPage, setCurrentPage] = useState(1); // Current page state
+  const pageSize = 6; // Number of cards per page
+
+  // Get current page <data>
+  const startIndex = (currentPage - 1) * pageSize;
+  const currentData = messageCards.slice(startIndex, startIndex + pageSize);
+
+  // Handle page change
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Change the pagenation previous and next button
+  const itemRender: PaginationProps["itemRender"] = (
+    _,
+    type,
+    originalElement
+  ) => {
+    if (type === "prev") {
+      return <a>Previous</a>;
+    }
+    if (type === "next") {
+      return <a>Next</a>;
+    }
+    return originalElement;
+  };
 
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        <Breadcrumb items={breadcrumbItems} linkRouter />
+        <Title className={styles.title} level={2}>
+          Messages
+        </Title>
         <Button
           className={styles.createReportBtn}
           disabled={loadingMessages}
           // onClick={() => sendMessageToAllUsers()}
           onClick={() => setOpenCreateMessageModal(true)}
         >
-          Send a message
+          <Text style={{ fontSize: 20 }}>Send a Message</Text>
         </Button>
       </div>
-      <div className={styles.content}>
-        <Table
-          className={styles.reportsTable}
-          rowKey="report_id"
-          bordered={false}
-          columns={columns}
-          dataSource={dataSource}
-          rowClassName={(record) =>
-            record.id === highlightedRow ? "highlight-row" : ""
-          }
-          pagination={{
-            total: totalCount,
-            showTotal: (total) => `Total ${total} Messages`,
-          }}
-          loading={loadingMessages}
-          onChange={onTableChange}
-        />
-      </div>
-
-      {/* <div
-        style={{
-          padding: "20px",
-          background: "#121212",
-          minHeight: "100vh",
-        }}
-      >
-        <Row justify="start" gutter={[16, 16]}>
-          <Col xs={16} sm={12} md={10} lg={8} span={6}>
-            <Card
-              style={{
-                background: "#1f1f1f",
-                color: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Text style={{ color: "#bbb" }}>Upload Date</Text>
-                <Text style={{ color: "#bbb" }}>{cardData.uploadDate}</Text>
-              </Row>
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Title level={5} style={{ color: "#fff", marginBottom: 0 }}>
-                  {cardData.customer}
-                </Title>
-                <Space>
-                  <Button
-                    type="text"
-                    icon={<SendOutlined />}
-                    style={{ color: "#00bfff" }}
-                  />
-                  <Button
-                    type="text"
-                    icon={<DeleteOutlined />}
-                    style={{ color: "#ff4d4f" }}
-                  />
-                </Space>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Title</Text>
-                  <div>{cardData.title}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Subject</Text>
-                  <div>{cardData.subject}</div>
-                </Col>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Tags</Text>
-                  <div>{cardData.tags}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Recommendations</Text>
-                  <div>{cardData.recommendations}</div>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={24}>
-                  <Text style={{ color: "#bbb" }}>Description</Text>
-                  <div>{cardData.description}</div>
-                </Col>
-              </Row>
-            </Card>
+      <div className={styles.searchContainer}>
+        <Title className={styles.panelTitle} level={3}>
+          Search Panel
+        </Title>
+        <Row className={styles.searchOptionContainer} gutter={32}>
+          <Col className={styles.fieldContainer} flex={4}>
+            <Title level={5} type="secondary">
+              Search
+            </Title>
+            <Input
+              size="large"
+              placeholder="Enter customer or report name or email"
+              className={styles.searchBar}
+              prefix={<SearchOutlined />}
+            />
           </Col>
-          <Col xs={16} sm={12} md={10} lg={8} span={6}>
-            <Card
-              style={{
-                background: "#1f1f1f",
-                color: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Text style={{ color: "#bbb" }}>Upload Date</Text>
-                <Text style={{ color: "#bbb" }}>{cardData.uploadDate}</Text>
-              </Row>
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Title level={5} style={{ color: "#fff", marginBottom: 0 }}>
-                  {cardData.customer}
-                </Title>
-                <Space>
-                  <Button
-                    type="text"
-                    icon={<SendOutlined />}
-                    style={{ color: "#00bfff" }}
-                  />
-                  <Button
-                    type="text"
-                    icon={<DeleteOutlined />}
-                    style={{ color: "#ff4d4f" }}
-                  />
-                </Space>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Title</Text>
-                  <div>{cardData.title}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Subject</Text>
-                  <div>{cardData.subject}</div>
-                </Col>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Tags</Text>
-                  <div>{cardData.tags}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Recommendations</Text>
-                  <div>{cardData.recommendations}</div>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={24}>
-                  <Text style={{ color: "#bbb" }}>Description</Text>
-                  <div>{cardData.description}</div>
-                </Col>
-              </Row>
-            </Card>
+          <Col className={styles.fieldContainer} flex={3}>
+            <Title level={5} type="secondary">
+              Date:
+            </Title>
+            <Select
+              defaultValue=""
+              placeholder="Till Today"
+              className={styles.selectBar}
+              options={sort_message_options}
+            />
           </Col>
-          <Col xs={16} sm={12} md={10} lg={8} span={6}>
-            <Card
-              style={{
-                background: "#1f1f1f",
-                color: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Text style={{ color: "#bbb" }}>Upload Date</Text>
-                <Text style={{ color: "#bbb" }}>{cardData.uploadDate}</Text>
-              </Row>
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Title level={5} style={{ color: "#fff", marginBottom: 0 }}>
-                  {cardData.customer}
-                </Title>
-                <Space>
-                  <Button
-                    type="text"
-                    icon={<SendOutlined />}
-                    style={{ color: "#00bfff" }}
-                  />
-                  <Button
-                    type="text"
-                    icon={<DeleteOutlined />}
-                    style={{ color: "#ff4d4f" }}
-                  />
-                </Space>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Title</Text>
-                  <div>{cardData.title}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Subject</Text>
-                  <div>{cardData.subject}</div>
-                </Col>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Tags</Text>
-                  <div>{cardData.tags}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Recommendations</Text>
-                  <div>{cardData.recommendations}</div>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={24}>
-                  <Text style={{ color: "#bbb" }}>Description</Text>
-                  <div>{cardData.description}</div>
-                </Col>
-              </Row>
-            </Card>
+          <Col className={styles.fieldContainer} flex={3}>
+            <Title level={5} type="secondary">
+              Report Type
+            </Title>
+            <Select
+              defaultValue=""
+              className={styles.selectBar}
+              placeholder="Select"
+              options={sort_message_options}
+            />
           </Col>
-          <Col xs={16} sm={12} md={10} lg={8} span={6}>
-            <Card
-              style={{
-                background: "#1f1f1f",
-                color: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Text style={{ color: "#bbb" }}>Upload Date</Text>
-                <Text style={{ color: "#bbb" }}>{cardData.uploadDate}</Text>
-              </Row>
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Title level={5} style={{ color: "#fff", marginBottom: 0 }}>
-                  {cardData.customer}
-                </Title>
-                <Space>
-                  <Button
-                    type="text"
-                    icon={<SendOutlined />}
-                    style={{ color: "#00bfff" }}
-                  />
-                  <Button
-                    type="text"
-                    icon={<DeleteOutlined />}
-                    style={{ color: "#ff4d4f" }}
-                  />
-                </Space>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Title</Text>
-                  <div>{cardData.title}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Subject</Text>
-                  <div>{cardData.subject}</div>
-                </Col>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Tags</Text>
-                  <div>{cardData.tags}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Recommendations</Text>
-                  <div>{cardData.recommendations}</div>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={24}>
-                  <Text style={{ color: "#bbb" }}>Description</Text>
-                  <div>{cardData.description}</div>
-                </Col>
-              </Row>
-            </Card>
+          <Col className={styles.fieldContainer} flex={2}>
+            <Title level={5} className={styles.invisible} type="secondary">
+              Search
+            </Title>
+            <Button className={styles.searchBtn} disabled={loadingOptions}>
+              <Text className={styles.createBtn}>Search</Text>
+            </Button>
           </Col>
-          <Col xs={16} sm={12} md={10} lg={8} span={6}>
-            <Card
-              style={{
-                background: "#1f1f1f",
-                color: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Text style={{ color: "#bbb" }}>Upload Date</Text>
-                <Text style={{ color: "#bbb" }}>{cardData.uploadDate}</Text>
-              </Row>
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginBottom: 16 }}
-              >
-                <Title level={5} style={{ color: "#fff", marginBottom: 0 }}>
-                  {cardData.customer}
-                </Title>
-                <Space>
-                  <Button
-                    type="text"
-                    icon={<SendOutlined />}
-                    style={{ color: "#00bfff" }}
-                  />
-                  <Button
-                    type="text"
-                    icon={<DeleteOutlined />}
-                    style={{ color: "#ff4d4f" }}
-                  />
-                </Space>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Title</Text>
-                  <div>{cardData.title}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Subject</Text>
-                  <div>{cardData.subject}</div>
-                </Col>
-              </Row>
-              <Row gutter={16} style={{ marginBottom: 16 }}>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Tags</Text>
-                  <div>{cardData.tags}</div>
-                </Col>
-                <Col span={12}>
-                  <Text style={{ color: "#bbb" }}>Recommendations</Text>
-                  <div>{cardData.recommendations}</div>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={24}>
-                  <Text style={{ color: "#bbb" }}>Description</Text>
-                  <div>{cardData.description}</div>
-                </Col>
-              </Row>
-            </Card>
+          <Col className={styles.fieldContainer} flex={2}>
+            <Title level={5} className={styles.invisible} type="secondary">
+              Search
+            </Title>
+            <Button className={styles.clearBtn} disabled={loadingOptions}>
+              <Text className={styles.createBtn}>Clear</Text>
+            </Button>
           </Col>
         </Row>
-      </div> */}
+        <Row className={styles.OptionContainer} gutter={32}>
+          <Col flex={5}>
+            <Title className={styles.optionTitle} level={2}>
+              List of Reports (24)
+            </Title>
+          </Col>
+          <Col style={{ marginTop: 15 }} flex={1}>
+            <Row className={styles.OptionContainer}>
+              <Col className={styles.sortContainer} flex={4}>
+                <Title className={styles.sortTitle} level={5} type="secondary">
+                  Sort:
+                </Title>
+                <Select
+                  defaultValue=""
+                  style={{ flex: 1 }}
+                  className={styles.sortBar}
+                  placeholder="Till Today"
+                  options={sort_message_options}
+                />
+              </Col>
+              <Col className={styles.viewIconContainer} flex={1}>
+                <Image
+                  width={35}
+                  height={35}
+                  className={styles.viewIcon}
+                  src={isTableView ? viewIcon : viewCardIcon}
+                  preview={false}
+                  onClick={() => {
+                    setIsTableView(!isTableView);
+                  }}
+                />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </div>
+
+      {/* Show the reports data with table */}
+
+      <TransitionGroup>
+        <CSSTransition
+          key={isTableView ? "table" : "cards"}
+          classNames="fade"
+          timeout={500}
+        >
+          {isTableView ? (
+            <div className={styles.content}>
+              <Table
+                className={styles.reportsTable}
+                rowClassName={(record, index) =>
+                  index % 2 === 0 ? styles.tdStyleOdd : styles.tdStyleEven
+                }
+                rowKey="cust_id"
+                bordered={false}
+                columns={columns}
+                dataSource={dataSource}
+                pagination={{
+                  total: totalCount,
+                  position: ["bottomCenter"],
+                  defaultPageSize: 5,
+                  itemRender: (page, type, originalElement) => {
+                    if (type === "prev") {
+                      return <a>Previous</a>;
+                    }
+                    if (type === "next") {
+                      return <a>Next</a>;
+                    }
+                    return originalElement;
+                  },
+                  showSizeChanger: false,
+                }}
+                loading={loadingMessages}
+                onChange={onTableChange}
+              />
+            </div>
+          ) : (
+            <div
+              style={{
+                marginTop: 15,
+              }}
+            >
+              <Row justify="start" gutter={[24, 24]}>
+                {currentData.map((item, index) => (
+                  <Col xs={24} sm={16} md={12} lg={8} key={index}>
+                    <Card
+                      className={styles.cardContainer}
+                      style={{
+                        backgroundColor:
+                          index % 2 === 0 ? "#282828" : "transparent",
+                      }}
+                    >
+                      <Row justify="space-between" align="middle">
+                        <Col>
+                          <Text className={styles.subtitle}>Upload Date</Text>
+                          <br />
+                          <Text className={styles.value}>
+                            {item.uploadDate}
+                          </Text>
+                        </Col>
+                        <Col>
+                          <Space>
+                            <Button
+                              icon={
+                                <Image
+                                  preview={false}
+                                  style={{ backgroundColor: "transparent" }}
+                                  src={sendIcon}
+                                />
+                              }
+                              type="link"
+                              style={{ color: "#fff" }}
+                            />
+                            <Divider
+                              style={{
+                                borderColor: "#667075",
+                                borderWidth: 2,
+                                marginInline: 0,
+                              }}
+                              type="vertical"
+                            />
+                            <Button
+                              icon={
+                                <Image
+                                  style={{ backgroundColor: "transparent" }}
+                                  preview={false}
+                                  src={deleteIcon}
+                                />
+                              }
+                              type="link"
+                              danger
+                            />
+                          </Space>
+                        </Col>
+                      </Row>
+                      <Divider
+                        style={{
+                          borderColor: index % 2 === 0 ? "#000" : "#282828",
+                        }}
+                      />
+                      <Row gutter={[16, 16]}>
+                        <Col xs={24} sm={16}>
+                          <Space direction="vertical">
+                            <Text className={styles.subtitle}>Customers</Text>
+                            <Text className={styles.value}>
+                              {item.customer}
+                            </Text>
+                          </Space>
+                        </Col>
+                        <Col xs={24} sm={12}>
+                          <Space direction="vertical">
+                            <Text className={styles.subtitle}>Title</Text>
+                            <Text className={styles.value}>{item.title}</Text>
+                          </Space>
+                        </Col>
+                        <Col xs={24} sm={12}>
+                          <Space direction="vertical">
+                            <Text className={styles.subtitle}>Subject</Text>
+                            <Text className={styles.value}>{item.subject}</Text>
+                          </Space>
+                        </Col>
+                        <Col xs={24} sm={12}>
+                          <Space direction="vertical">
+                            <Text className={styles.subtitle}>Tags</Text>
+                            <Text className={styles.value}>{item.tags}</Text>
+                          </Space>
+                        </Col>
+                        <Col xs={24} sm={12}>
+                          <Space direction="vertical">
+                            <Text className={styles.subtitle}>
+                              Recommendation
+                            </Text>
+                            <Text className={styles.value}>
+                              {item.recommendations}
+                            </Text>
+                          </Space>
+                        </Col>
+                        <Col xs={12} sm={12}>
+                          <Space direction="vertical">
+                            <Text className={styles.subtitle}>Description</Text>
+                            <p
+                              className={styles.value}
+                              style={{
+                                position: "relative",
+                                width: "475px",
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                marginBottom: 0,
+                              }}
+                            >
+                              {item.description}
+                            </p>
+                          </Space>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+
+              <div className={styles.cardPagination}>
+                <CardPagination
+                  current={currentPage}
+                  pageSize={pageSize}
+                  total={messageCards.length}
+                  onChange={handlePageChange}
+                  itemRender={itemRender}
+                  responsive
+                />
+              </div>
+            </div>
+          )}
+        </CSSTransition>
+      </TransitionGroup>
+
+      <FooterBar />
 
       {/* send messgae modal */}
       <Modal
@@ -777,6 +878,7 @@ const AdminMessages = () => {
         open={openCreateMessageModal}
         onCancel={onCloseCreateMessageModal}
         footer={null}
+        title={<Text type="secondary">NEW MESSAGE</Text>}
       >
         <Form
           {...formLayout}
@@ -786,24 +888,22 @@ const AdminMessages = () => {
           onFinish={onSubmitAlert}
         >
           <Title className={styles.formTitle}>Send a Message</Title>
-
-          <Row gutter={30} style={{ maxWidth: 420 }}>
+          <Row gutter={30}>
             <Col sm={24}>
               <Form.Item
-                name="select_customer"
+                name="cust_id"
                 label="Select Customer"
                 rules={[{ required: true }]}
               >
                 <Select
                   options={customerTypeOptions}
-                  mode="multiple"
+                  placeholder="Select"
                   showSearch
                   allowClear
                 />
               </Form.Item>
             </Col>
           </Row>
-
           <Row gutter={30}>
             <Col sm={24}>
               <Form.Item
@@ -811,7 +911,7 @@ const AdminMessages = () => {
                 label="Message Title"
                 rules={[{ required: true }]}
               >
-                <Input />
+                <Input placeholder="Type in" />
               </Form.Item>
             </Col>
           </Row>
@@ -822,7 +922,7 @@ const AdminMessages = () => {
                 label="Message Tags"
                 rules={[{ required: true }]}
               >
-                <Input />
+                <Input placeholder="Type in" />
               </Form.Item>
             </Col>
           </Row>
@@ -833,7 +933,7 @@ const AdminMessages = () => {
                 label="Message Subject"
                 rules={[{ required: true }]}
               >
-                <Input />
+                <Input placeholder="Type in" />
               </Form.Item>
             </Col>
           </Row>
@@ -844,7 +944,11 @@ const AdminMessages = () => {
                 label="Message Recomendation"
                 rules={[{ required: true }]}
               >
-                <Input variant="textarea" style={{ minHeight: 80 }} />
+                <Input
+                  variant="textarea"
+                  style={{ minHeight: 80, backgroundColor: "#282937" }}
+                  placeholder="Type In"
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -855,7 +959,11 @@ const AdminMessages = () => {
                 label="Message Body"
                 rules={[{ required: true }]}
               >
-                <Input variant="textarea" style={{ minHeight: 80 }} />
+                <Input
+                  variant="textarea"
+                  style={{ minHeight: 80, backgroundColor: "#282937" }}
+                  placeholder="Type In"
+                />
               </Form.Item>
             </Col>
           </Row>

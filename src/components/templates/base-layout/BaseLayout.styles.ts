@@ -14,7 +14,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     textAlign: "flex-start",
     minHeight: 120,
     color: "#fff",
-    backgroundColor: "#282937",
+    backgroundColor: "#1c1c1c",
   },
   siderStyle: {
     textAlign: "center",

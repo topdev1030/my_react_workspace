@@ -9,6 +9,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     color: theme.colors.colorText,
   },
   mainContainer: {
+    width: "75%",
     padding: 20,
     backgroundColor: "#1C1C1C",
   },
@@ -95,7 +96,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   statsTitle: {
     "&.ant-typography": {
       fontFamily: "Poppins",
-      marginTop: 15,
+      marginTop: 5,
       marginLeft: 10,
       fontSize: 20,
       textAlign: "start",
@@ -107,7 +108,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   statsSup: {
     paddingLeft: 8,
     fontWeight: 400,
-    fontSize: 24,
+    fontSize: 40,
   },
   statsTextSuccess: {
     color: theme.colors.colorSuccess,
@@ -141,15 +142,18 @@ const useStyles = createUseStyles((theme: Theme) => ({
     width: "100%",
     height: 170,
     "& .ant-card-body": {
-      padding: "15px 24px 10px 24px",
+      padding: "15px 20px 10px 24px",
     },
   },
   galanceSubTitle: {
     marginBottom: 8,
+    fontWeight: 600,
+    fontSize: 16,
     color: "#000",
   },
   galanceValue: {
     fontSize: 40,
+    fontWeight: "600",
     color: "#000",
   },
   galanceViewAll: {
@@ -175,7 +179,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   rightBar: {
     display: "block",
-    padding: 20,
+    padding: "20px 15px 5px 20px",
     alignItems: "center",
     backgroundColor: "#141414",
   },
@@ -207,10 +211,10 @@ const useStyles = createUseStyles((theme: Theme) => ({
       padding: 10,
     },
     width: "100%",
-    marginLeft: "auto",
     marginRight: "auto",
-    borderRadius: 20,
+    marginLeft: "auto",
     marginBottom: 15,
+    borderRadius: 20,
     backgroundColor: "#282937",
   },
   newsCardContainer: {

@@ -3,13 +3,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { Image, Layout, Menu } from "antd";
-import {
-  LogoutOutlined,
-  AppstoreOutlined,
-  HomeOutlined,
-  MessageOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
 import type { MenuProps } from "antd";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -34,7 +27,7 @@ import reportIcon from "../../../static/images/reports.png";
 import logoutIcon from "../../../static/images/logout.png";
 
 // Components
-import { Button, Dropdown, Typography } from "@/components/atoms";
+import { Typography } from "@/components/atoms";
 
 // config
 import config from "@/config";
@@ -100,33 +93,49 @@ const SideBar = () => {
   const items: MenuItem[] = [
     {
       key: "sub1",
-      label: <Link to="/">Home</Link>,
+      label: (
+        <Link to="/">
+          <Text type="secondary">Home</Text>
+        </Link>
+      ),
       icon: <Image width={30} height={30} src={homeIcon} />,
     },
     {
       key: "sub2",
-      label: <Link to="/admin/reports">Reports</Link>,
+      label: (
+        <Link to="/admin/reports">
+          <Text type="secondary">Reports</Text>
+        </Link>
+      ),
       icon: <Image width={30} height={30} src={reportIcon} />,
     },
     {
       key: "sub3",
-      label: <Link to="/admin/uploads">Uploads</Link>,
+      label: (
+        <Link to="/admin/uploads">
+          <Text type="secondary">Uploads</Text>
+        </Link>
+      ),
       icon: <Image width={30} height={30} src={uploadIcon} />,
     },
     {
       key: "sub4",
-      label: <Link to="/admin/messages">Messages</Link>,
+      label: (
+        <Link to="/admin/messages">
+          <Text type="secondary">Messages</Text>
+        </Link>
+      ),
       icon: <Image width={30} height={30} src={messageIcon} />,
     },
   ];
 
   return (
-    <Sider width="15%" className={styles.siderStyle}>
+    <Sider width="285px" className={styles.siderStyle}>
       <div
         className={styles.logoContainer}
         onClick={() => navigate("/dashboard")}
       >
-        <img className={styles.imgLogo} src={ImgLogo} alt="logo" />
+        <img className={styles.imgLogo} width="75%" src={ImgLogo} alt="logo" />
         <Title type="secondary" className={styles.logoTitle}>
           Treat Intelligence
         </Title>
@@ -155,7 +164,7 @@ const SideBar = () => {
         />
       </div>
       <div onClick={onLogout} className={styles.logoutIcon}>
-        <Image width={35} src={logoutIcon} />
+        <Image width={30} preview={false} src={logoutIcon} />
         <Text className={styles.logoutTitle} type="secondary" strong>
           Logout
         </Text>

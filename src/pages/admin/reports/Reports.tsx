@@ -6,8 +6,11 @@ import {
   Image,
   message,
   Select,
+  Card,
+  Space,
   Divider,
   Pagination as CardPagination,
+  PaginationProps,
 } from "antd";
 import type { TablePaginationConfig } from "antd/es/table/interface";
 import type { UploadRequestOption } from "rc-upload/lib/interface";
@@ -16,12 +19,12 @@ import {
   HomeOutlined,
   FilePdfOutlined,
   SearchOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
 import debounce from "debounce";
 import dayjs, { Dayjs } from "dayjs";
 
 import React from "react";
-import { Card, Space } from "antd";
 
 // components
 import {
@@ -62,6 +65,7 @@ import {
   CreateReportFormValues,
 } from "./Reports.types";
 
+// Import TransitionGroup for animation
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 // constants
@@ -80,6 +84,7 @@ import viewCardIcon from "../../../static/images/view_expand.png";
 import viewDetailIcon from "../../../static/images/viewIcon.png";
 import deleteIcon from "../../../static/images/deleteIcon.png";
 import downloadIcon from "../../../static/images/downloadIcon.png";
+import { FooterBar } from "@/components/organisms/footer";
 
 const { Title, Text } = Typography;
 const { Dragger } = Upload;
@@ -422,8 +427,6 @@ const AdminReports = () => {
     [subsidiariesOptions, currentCustomerOption]
   );
 
-  // console.log("report data source", dataSource);
-
   dataSource.forEach((data) =>
     console.log(new Date(data.upload_date_time).toISOString().split("T")[0])
   );
@@ -559,7 +562,7 @@ const AdminReports = () => {
       },
     },
     {
-      title: "Report Pdf",
+      title: "Action",
       dataIndex: "url",
       align: "center",
       width: 240,
@@ -567,12 +570,30 @@ const AdminReports = () => {
         <div className={styles.tdIconStyle}>
           <div className={styles.reportPdfCol}>
             <Button
+              style={{ border: 0, backgroundColor: "transparent" }}
               icon={<Image preview={false} src={viewDetailIcon} />}
               onClick={() => onOpenPDFReportPreview(value)}
             />
+            <Divider
+              style={{
+                borderColor: "#667075",
+                borderWidth: 2,
+                marginInline: 0,
+              }}
+              type="vertical"
+            />
             <Button
+              style={{ border: 0, backgroundColor: "transparent" }}
               icon={<Image preview={false} src={downloadIcon} />}
               onClick={() => onDownloadPDFReport(value)}
+            />
+            <Divider
+              style={{
+                borderColor: "#667075",
+                borderWidth: 2,
+                marginInline: 0,
+              }}
+              type="vertical"
             />
             <Popconfirm
               title="Delete a report"
@@ -584,6 +605,7 @@ const AdminReports = () => {
             >
               <Button
                 shape="circle"
+                style={{ border: 0, backgroundColor: "transparent" }}
                 icon={<Image preview={false} src={deleteIcon} />}
               />
             </Popconfirm>
@@ -591,15 +613,6 @@ const AdminReports = () => {
         </div>
       ),
     },
-  ];
-
-  const breadcrumbItems = [
-    {
-      href: "/dashboard",
-      title: <HomeOutlined />,
-    },
-    { title: "Admin" },
-    { title: "Reports" },
   ];
 
   const reportData = [
@@ -643,10 +656,66 @@ const AdminReports = () => {
       reportType: "Threat Actor",
       uploadedBy: "eric.huang@omegablck.io",
     },
+    {
+      uploadDate: "10/14/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      subsidiary: "Truetech Insurance",
+      reportName: "Lorem ipsum dolor sit",
+      reportType: "Threat Actor",
+      uploadedBy: "eric.huang@omegablck.io",
+    },
+    {
+      uploadDate: "10/14/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      subsidiary: "Truetech Insurance",
+      reportName: "Lorem ipsum dolor sit",
+      reportType: "Threat Actor",
+      uploadedBy: "eric.huang@omegablck.io",
+    },
+    {
+      uploadDate: "10/14/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      subsidiary: "Truetech Insurance",
+      reportName: "Lorem ipsum dolor sit",
+      reportType: "Threat Actor",
+      uploadedBy: "eric.huang@omegablck.io",
+    },
+    {
+      uploadDate: "10/14/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      subsidiary: "Truetech Insurance",
+      reportName: "Lorem ipsum dolor sit",
+      reportType: "Threat Actor",
+      uploadedBy: "eric.huang@omegablck.io",
+    },
+    {
+      uploadDate: "10/14/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      subsidiary: "Truetech Insurance",
+      reportName: "Lorem ipsum dolor sit",
+      reportType: "Threat Actor",
+      uploadedBy: "eric.huang@omegablck.io",
+    },
+    {
+      uploadDate: "10/14/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      subsidiary: "Truetech Insurance",
+      reportName: "Lorem ipsum dolor sit",
+      reportType: "Threat Actor",
+      uploadedBy: "eric.huang@omegablck.io",
+    },
+    {
+      uploadDate: "10/14/2024",
+      customer: "Cyber Care System Pvt. Ltd.",
+      subsidiary: "Truetech Insurance",
+      reportName: "Lorem ipsum dolor sit",
+      reportType: "Threat Actor",
+      uploadedBy: "eric.huang@omegablck.io",
+    },
   ];
 
   const [currentPage, setCurrentPage] = useState(1); // Current page state
-  const pageSize = 3; // Number of cards per page
+  const pageSize = 6; // Number of cards per page
 
   // Get current page <data>
   const startIndex = (currentPage - 1) * pageSize;
@@ -655,6 +724,21 @@ const AdminReports = () => {
   // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  // Change the pagenation previous and next button
+  const itemRender: PaginationProps["itemRender"] = (
+    _,
+    type,
+    originalElement
+  ) => {
+    if (type === "prev") {
+      return <a>Previous</a>;
+    }
+    if (type === "next") {
+      return <a>Next</a>;
+    }
+    return originalElement;
   };
 
   return (
@@ -666,10 +750,11 @@ const AdminReports = () => {
         <Button
           className={styles.createReportBtn}
           disabled={loadingReports}
+          icon={<PlusOutlined />}
           // onClick={() => sendMessageToAllUsers()}
           onClick={() => setOpenCreateReportModal(true)}
         >
-          <Text className={styles.createBtn}>Create a report</Text>
+          <Text className={styles.createBtn}>Create a Report</Text>
         </Button>
       </div>
       <div className={styles.searchContainer}>
@@ -714,11 +799,7 @@ const AdminReports = () => {
             <Title level={5} className={styles.invisible} type="secondary">
               Search
             </Title>
-            <Button
-              className={styles.searchBtn}
-              disabled={loadingReports}
-              onClick={() => setOpenCreateReportModal(true)}
-            >
+            <Button className={styles.searchBtn} disabled={loadingReports}>
               <Text className={styles.createBtn}>Search</Text>
             </Button>
           </Col>
@@ -726,11 +807,7 @@ const AdminReports = () => {
             <Title level={5} className={styles.invisible} type="secondary">
               Search
             </Title>
-            <Button
-              className={styles.clearBtn}
-              disabled={loadingReports}
-              onClick={() => setOpenCreateReportModal(true)}
-            >
+            <Button className={styles.clearBtn} disabled={loadingReports}>
               <Text className={styles.createBtn}>Clear</Text>
             </Button>
           </Col>
@@ -741,7 +818,7 @@ const AdminReports = () => {
               List of Reports (24)
             </Title>
           </Col>
-          <Col flex={1}>
+          <Col style={{ marginTop: 15 }} flex={1}>
             <Row className={styles.OptionContainer}>
               <Col className={styles.sortContainer} flex={4}>
                 <Title className={styles.sortTitle} level={5} type="secondary">
@@ -793,8 +870,18 @@ const AdminReports = () => {
                 dataSource={dataSource}
                 pagination={{
                   total: totalCount,
-                  showTotal: (total) => `Total ${total} Reports`,
+                  position: ["bottomCenter"],
                   defaultPageSize: 5,
+                  itemRender: (page, type, originalElement) => {
+                    if (type === "prev") {
+                      return <a>Previous</a>;
+                    }
+                    if (type === "next") {
+                      return <a>Next</a>;
+                    }
+                    return originalElement;
+                  },
+                  showSizeChanger: false,
                 }}
                 loading={loadingReports}
                 onChange={onTableChange}
@@ -806,92 +893,116 @@ const AdminReports = () => {
                 {currentData.map((report, index) => (
                   <Col xs={24} sm={16} md={12} lg={8} key={index}>
                     <Card
+                      className={styles.cardContainer}
                       style={{
-                        backgroundColor: "#1c1c1e",
-                        color: "#fff",
-                        borderRadius: 8,
+                        backgroundColor:
+                          index % 2 === 0 ? "#282828" : "transparent",
                       }}
                     >
                       <Row justify="space-between" align="middle">
                         <Col>
-                          <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                            Upload Date
+                          <Text className={styles.subtitle}>Upload Date</Text>
+
+                          <Text className={styles.value}>
+                            {report.uploadDate}
                           </Text>
-                          <br />
-                          <Text style={{ color: "#bfbfbf" }}>10/18/2024</Text>
                         </Col>
                         <Col>
                           <Space>
                             <Button
                               icon={
-                                <Image preview={false} src={viewDetailIcon} />
+                                <Image
+                                  preview={false}
+                                  style={{ backgroundColor: "transparent" }}
+                                  src={viewDetailIcon}
+                                />
                               }
                               type="link"
                               style={{ color: "#fff" }}
+                            />
+                            <Divider
+                              style={{
+                                borderColor: "#667075",
+                                borderWidth: 2,
+                                marginInline: 0,
+                              }}
+                              type="vertical"
                             />
                             <Button
                               icon={
-                                <Image preview={false} src={downloadIcon} />
+                                <Image
+                                  preview={false}
+                                  style={{ backgroundColor: "transparent" }}
+                                  src={downloadIcon}
+                                />
                               }
                               type="link"
                               style={{ color: "#fff" }}
                             />
+                            <Divider
+                              style={{
+                                borderColor: "#667075",
+                                borderWidth: 2,
+                                marginInline: 0,
+                              }}
+                              type="vertical"
+                            />
                             <Button
-                              icon={<Image preview={false} src={deleteIcon} />}
+                              icon={
+                                <Image
+                                  style={{ backgroundColor: "transparent" }}
+                                  preview={false}
+                                  src={deleteIcon}
+                                />
+                              }
                               type="link"
                               danger
                             />
                           </Space>
                         </Col>
                       </Row>
-                      <Divider />
+                      <Divider
+                        style={{
+                          borderColor: index % 2 === 0 ? "#000" : "#282828",
+                        }}
+                      />
                       <Row gutter={[16, 16]}>
                         <Col xs={24} sm={16}>
                           <Space direction="vertical">
-                            <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                              Customers
-                            </Text>
-                            <Text style={{ color: "#bfbfbf" }}>
+                            <Text className={styles.subtitle}>Customers</Text>
+                            <Text className={styles.value}>
                               {report.customer}
                             </Text>
                           </Space>
                         </Col>
                         <Col xs={24} sm={12}>
                           <Space direction="vertical">
-                            <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                              Report Name
-                            </Text>
-                            <Text style={{ color: "#bfbfbf" }}>
+                            <Text className={styles.subtitle}>Report Name</Text>
+                            <Text className={styles.value}>
                               {report.reportName}
                             </Text>
                           </Space>
                         </Col>
                         <Col xs={24} sm={12}>
                           <Space direction="vertical">
-                            <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                              Subsidiary
-                            </Text>
-                            <Text style={{ color: "#bfbfbf" }}>
+                            <Text className={styles.subtitle}>Subsidiary</Text>
+                            <Text className={styles.value}>
                               {report.subsidiary}
                             </Text>
                           </Space>
                         </Col>
                         <Col xs={24} sm={12}>
                           <Space direction="vertical">
-                            <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                              Uploaded by
-                            </Text>
-                            <Text style={{ color: "#bfbfbf" }}>
+                            <Text className={styles.subtitle}>Uploaded by</Text>
+                            <Text className={styles.value}>
                               {report.uploadedBy}
                             </Text>
                           </Space>
                         </Col>
                         <Col xs={24} sm={12}>
                           <Space direction="vertical">
-                            <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                              Report Type
-                            </Text>
-                            <Text style={{ color: "#bfbfbf" }}>
+                            <Text className={styles.subtitle}>Report Type</Text>
+                            <Text className={styles.value}>
                               {report.reportType}
                             </Text>
                           </Space>
@@ -902,18 +1013,13 @@ const AdminReports = () => {
                 ))}
               </Row>
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "20px",
-                }}
-              >
+              <div className={styles.cardPagination}>
                 <CardPagination
                   current={currentPage}
                   pageSize={pageSize}
                   total={reportData.length}
                   onChange={handlePageChange}
+                  itemRender={itemRender}
                   responsive
                 />
               </div>
@@ -921,6 +1027,8 @@ const AdminReports = () => {
           )}
         </CSSTransition>
       </TransitionGroup>
+
+      <FooterBar />
 
       {/* Show the reports data with cards */}
 
@@ -930,7 +1038,7 @@ const AdminReports = () => {
         open={openCreateReportModal}
         onCancel={onCloseCreateReportModal}
         footer={null}
-        title="Send a Request"
+        title={<Text type="secondary">NEW REPORT</Text>}
       >
         <Form
           {...formLayout}
@@ -939,7 +1047,7 @@ const AdminReports = () => {
           name="create-report"
           onFinish={onSubmitCreateReportForm}
         >
-          <Title className={styles.formTitle}>Create a report</Title>
+          <Title className={styles.formTitle}>Create a Report</Title>
           <Row gutter={30}>
             <Col sm={24}>
               <Form.Item
@@ -1007,11 +1115,18 @@ const AdminReports = () => {
                   customRequest={onCustomRequest}
                   disabled={!currentCustomerOption}
                 >
+                  <p
+                    className="ant-upload-text"
+                    style={{
+                      color: "#498dce",
+                      marginBottom: 15,
+                      fontSize: "10px !important",
+                    }}
+                  >
+                    Drag and drop your file here or click to browse
+                  </p>
                   <p className="ant-upload-drag-icon">
                     <FilePdfOutlined />
-                  </p>
-                  <p className="ant-upload-text">
-                    Drag and drop your file here or click to browse
                   </p>
                   <p className="ant-upload-hint">
                     Support file type: .pdf .docs .csv
@@ -1021,11 +1136,21 @@ const AdminReports = () => {
             </Col>
           </Row>
           <div className={styles.formActions}>
-            <Button type="primary" htmlType="submit" loading={creatingReport}>
-              Submit
+            <Button
+              htmlType="button"
+              size="large"
+              style={{ backgroundColor: "transparent" }}
+              onClick={onResetCreateReportForm}
+            >
+              Cancel
             </Button>
-            <Button htmlType="button" onClick={onResetCreateReportForm}>
-              Reset
+            <Button
+              style={{ backgroundColor: "#498dce" }}
+              htmlType="submit"
+              size="large"
+              loading={creatingReport}
+            >
+              Submit
             </Button>
           </div>
         </Form>

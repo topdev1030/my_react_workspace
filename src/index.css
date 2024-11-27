@@ -115,7 +115,7 @@ body {
 
 *:not(html):not(body) {
   scrollbar-width: thin;
-  scrollbar-color: #404e5e transparent;
+  scrollbar-color: #498dce transparent;
 
   &::-webkit-scrollbar {
     width: 0.6rem;

@@ -3,11 +3,12 @@ import { Theme } from "@/theme";
 
 const useStyles = createUseStyles((theme: Theme) => ({
   siderStyle: {
+    position: "fixed",
+    left: 0,
     textAlign: "center",
     lineHeight: "120px",
     color: "#fff",
-    backgroundColor: "#1677ff",
-    height: "100vh",
+    backgroundColor: "#000000 !important",
   },
   logoContainer: {
     display: "flex",
@@ -18,12 +19,16 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   logoTitle: {
     marginTop: 5,
-    fontSize: "18px !important",
+    marginLeft: 5,
+    fontSize: "20px !important",
+    textAlign: "start",
+    fontWeight: "400 !important",
   },
   imgLogo: {
     margin: 0,
     border: 0,
     borderRadius: 100,
+    textAlign: "start",
   },
   profileCard: {
     display: "flex",
@@ -50,6 +55,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     marginBottom: "0px !important",
   },
   menuItem: {
+    backgroundColor: "transparent",
     "& > .ant-menu-item": {
       display: "flex",
       height: "55px",
@@ -77,7 +83,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     marginBottom: 20,
   },
   logoutTitle: {
-    marginLeft: 25,
+    marginLeft: 20,
   },
 }));
 

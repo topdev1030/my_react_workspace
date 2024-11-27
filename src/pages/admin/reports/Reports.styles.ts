@@ -31,7 +31,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignSelf: "flex-start",
     marginBottom: "auto !important",
-    marginTop: "auto",
+    marginTop: "15px",
   },
   searchOptionContainer: {
     marginTop: 10,
@@ -60,6 +60,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     height: 60,
     "& .ant-select-selector": {
       border: "1px solid #424242 !important",
+      borderRadius: 8,
       backgroundColor: "#282937 !important",
     },
   },
@@ -129,7 +130,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
         fontSize: 13,
         color: theme.colors.colorText,
         fontWeight: 400,
-        // padding: "16px 0 !important",
       },
       "& th": {
         color: "#8E8E8E !important",
@@ -148,6 +148,70 @@ const useStyles = createUseStyles((theme: Theme) => ({
         backgroundColor: "#1C1C1C",
       },
     },
+    "& .ant-pagination": {
+      "& .ant-pagination-item": {
+        border: "1px solid #325475",
+        borderRight: 0,
+        borderRadius: 0,
+        marginInlineEnd: 0,
+        padding: "20px 0",
+        alignItems: "center",
+        display: "flex",
+        backgroundColor: "#1C1C1C",
+      },
+      "& .ant-pagination-item-active > a": {
+        color: "#000",
+        backgroundColor: "#498dce",
+      },
+      "& .ant-pagination-item > a": {
+        padding: "5px 13px",
+      },
+      "& .ant-pagination-prev": {
+        display: "flex",
+        border: "1px solid #325475",
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+        borderRight: 0,
+        padding: "20px 10px",
+        alignItems: "center",
+        marginInlineEnd: 0,
+      },
+      "& .ant-pagination-jump-next": {
+        border: "1px solid #325475",
+        borderRight: 0,
+        borderRadius: 0,
+        marginInlineEnd: 0,
+        padding: "20px 0",
+        alignItems: "center",
+        display: "flex",
+        backgroundColor: "#1C1C1C",
+      },
+      "& .ant-pagination-next": {
+        border: "1px solid #325475",
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        padding: "20px 20px",
+        alignItems: "center",
+        justifyContent: "end",
+        display: "flex",
+      },
+      "& .ant-pagination-item-link-icon": {
+        padding: "0 9px",
+      },
+      "& .ant-pagination-item-ellipsis": {
+        padding: "0 5px",
+      },
+      "& .ant-pagination-jump-prev": {
+        border: "1px solid #325475",
+        borderRight: 0,
+        borderRadius: 0,
+        marginInlineEnd: 0,
+        padding: "20px 0",
+        alignItems: "center",
+        display: "flex",
+        backgroundColor: "#1C1C1C",
+      },
+    },
   },
   tdFirstCell: {
     borderTopLeftRadius: 5,
@@ -155,17 +219,112 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
 
   tdStyleEven: {
-    // padding: "10px 0",
     backgroundColor: "#000000",
   },
   tdStyleOdd: {
-    // padding: "10px 0",
     backgroundColor: "#272727",
   },
 
   tdIconStyle: {
     borderTopRightRadius: 5,
     borderBottomRightRadius: 5,
+  },
+  cardPagination: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "30px",
+
+    "& .ant-pagination": {
+      "& .ant-pagination-item": {
+        border: "1px solid #325475",
+        borderRight: 0,
+        borderRadius: 0,
+        marginInlineEnd: 0,
+        padding: "20px 0",
+        alignItems: "center",
+        display: "flex",
+        backgroundColor: "#1C1C1C",
+      },
+      "& .ant-pagination-item-active > a": {
+        color: "#000",
+        backgroundColor: "#498dce",
+      },
+      "& .ant-pagination-item > a": {
+        padding: "5px 13px",
+      },
+      "& .ant-pagination-prev": {
+        display: "flex",
+        border: "1px solid #325475",
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+        borderRight: 0,
+        padding: "20px 10px",
+        alignItems: "center",
+        marginInlineEnd: 0,
+      },
+      "& .ant-pagination-jump-next": {
+        border: "1px solid #325475",
+        borderRight: 0,
+        borderRadius: 0,
+        marginInlineEnd: 0,
+        padding: "20px 0",
+        alignItems: "center",
+        display: "flex",
+        backgroundColor: "#1C1C1C",
+      },
+      "& .ant-pagination-next": {
+        border: "1px solid #325475",
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        padding: "20px 20px",
+        alignItems: "center",
+        justifyContent: "end",
+        display: "flex",
+      },
+      "& .ant-pagination-item-link-icon": {
+        padding: "0 9px",
+      },
+      "& .ant-pagination-item-ellipsis": {
+        padding: "0 5px",
+      },
+      "& .ant-pagination-jump-prev": {
+        border: "1px solid #325475",
+        borderRight: 0,
+        borderRadius: 0,
+        marginInlineEnd: 0,
+        padding: "20px 0",
+        alignItems: "center",
+        display: "flex",
+        backgroundColor: "#1C1C1C",
+      },
+    },
+  },
+  cardContainer: {
+    backgroundColor: "#1c1c1e",
+    color: "#fff",
+    borderRadius: 8,
+
+    "& .ant-card-body": {
+      padding: "24px 12px",
+
+      "& .ant-divider-horizontal": {
+        margin: "12px 0",
+      },
+
+      "& .ant-space-gap-row-small": {
+        rowGap: 0,
+      },
+    },
+  },
+  subtitle: {
+    color: "rgba(255, 255, 255, 0.45)",
+    fontWeight: 400,
+    fontSize: 14,
+  },
+  value: {
+    color: "#FFF",
+    fontWeight: 500,
+    fontSize: 16,
   },
   reportPdfCol: {
     display: "flex",
@@ -177,8 +336,9 @@ const useStyles = createUseStyles((theme: Theme) => ({
     width: "fit-content !important",
     "& .ant-modal-content": {
       width: 540,
-      padding: 40,
+      padding: 20,
       backgroundColor: "#141414 !important",
+      borderRadius: 20,
     },
     "& .ant-modal-header": {
       color: "#8E8E8E",
@@ -189,9 +349,15 @@ const useStyles = createUseStyles((theme: Theme) => ({
     "& input, & input.form-control": {
       width: "100%",
       height: 50,
+      backgroundColor: "#282937 !important",
     },
     "& .ant-select-single": {
       height: "50px !important",
+    },
+    "& .ant-select-selector": {
+      border: "1px solid #424242 !important",
+      borderRadius: 8,
+      backgroundColor: "#282937 !important",
     },
   },
   formTitle: {
@@ -210,13 +376,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
     },
   },
   formActions: {
-    marginTop: 36,
+    marginTop: 10,
     display: "flex",
     alignItems: "center",
     gap: 20,
     "& > button": {
       flex: 1,
-      height: 36,
+      height: 50,
       fontSize: 16,
     },
   },
@@ -227,6 +393,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
       padding: 0,
       background: "none",
       border: "none",
+      borderRadius: 20,
       "& > .ant-modal-close": {
         right: -28,
         top: 0,
