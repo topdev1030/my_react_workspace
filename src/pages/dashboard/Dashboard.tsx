@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import cx from "clsx";
 
 import { Col, Row, Image } from "antd";
@@ -22,11 +24,17 @@ import dashboardIcon_2 from "../../static/images/dashboard_icons_2.png";
 import dashboardIcon_3 from "../../static/images/dashboard_icons_3.png";
 import dashboardIcon_4 from "../../static/images/dashboard_icons_4.png";
 import viewArrowIcon from "../../static/images/ri_arrow-up-line.png";
+import { Link } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
 const Dashboard = () => {
   const styles = useStyles();
+  const navigate = useNavigate();
+
+  const handleRedirect = (url: String) => {
+    navigate(`/admin/${url}`);
+  };
 
   const statsData = [
     {
@@ -100,9 +108,9 @@ const Dashboard = () => {
   ];
 
   const galanceData = [
-    { title: "Reports Created", value: 10, color: "#C38A39" },
-    { title: "Uploaded Files", value: 50, color: "#A5F167" },
-    { title: "Messages Sent", value: 14, color: "#72C3F1" },
+    { title: "Reports Created", url: "reports", value: 10, color: "#C38A39" },
+    { title: "Uploaded Files", url: "uploads", value: 50, color: "#A5F167" },
+    { title: "Messages Sent", url: "messages", value: 14, color: "#72C3F1" },
   ];
 
   const feedData = [
@@ -260,6 +268,7 @@ const Dashboard = () => {
                       backgroundColor: card.color,
                     }}
                     hoverable
+                    onClick={() => handleRedirect(card.url)}
                   >
                     <h3 className={styles.galanceSubTitle}>{card.title}</h3>
                     <h1 className={styles.galanceValue}>{card.value}</h1>

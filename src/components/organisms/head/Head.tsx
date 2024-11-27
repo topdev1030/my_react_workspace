@@ -14,7 +14,7 @@ const Head = () => {
 
   return (
     <Header className={styles.headerStyle}>
-      <Title className={styles.title}>DashBoard</Title>
+      <Title className={styles.title}>Dashboard</Title>
       <Input
         size="large"
         placeholder="Search"

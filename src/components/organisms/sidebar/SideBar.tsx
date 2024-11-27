@@ -144,6 +144,7 @@ const SideBar = () => {
         <Image
           width={85}
           className={styles.imgLogo}
+          preview={false}
           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         />
         <div className={styles.cardDescription}>
@@ -157,7 +158,7 @@ const SideBar = () => {
       <div>
         <Menu
           className={styles.menuItem}
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["sub1"]}
           defaultOpenKeys={["sub1"]}
           mode="inline"
           items={items}
@@ -166,7 +167,7 @@ const SideBar = () => {
       <div onClick={onLogout} className={styles.logoutIcon}>
         <Image width={30} preview={false} src={logoutIcon} />
         <Text className={styles.logoutTitle} type="secondary" strong>
-          Logout
+          Log Out
         </Text>
       </div>
     </Sider>

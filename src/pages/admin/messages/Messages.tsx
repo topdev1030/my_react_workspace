@@ -658,7 +658,7 @@ const AdminMessages = () => {
         <Row className={styles.OptionContainer} gutter={32}>
           <Col flex={5}>
             <Title className={styles.optionTitle} level={2}>
-              List of Reports (24)
+              List of Messages (24)
             </Title>
           </Col>
           <Col style={{ marginTop: 15 }} flex={1}>

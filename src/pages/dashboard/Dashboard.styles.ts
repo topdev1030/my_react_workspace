@@ -168,7 +168,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   galanceCardTitle: {
     "&.ant-typography": {
-      fontFamily: "sans-serif",
+      fontFamily: "Poppins",
       textAlign: "start",
       marginTop: 5,
       fontSize: 16,

@@ -37,7 +37,7 @@ root.render(
         theme={{
           token: {
             ...theme.colors,
-            fontFamily: "DM Sans",
+            fontFamily: "Poppins",
           },
         }}
       >

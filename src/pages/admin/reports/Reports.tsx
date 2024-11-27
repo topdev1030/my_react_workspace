@@ -1066,7 +1066,12 @@ const AdminReports = () => {
                 label="Report Type"
                 rules={[{ required: true }]}
               >
-                <Select options={reportTypeOptions} showSearch allowClear />
+                <Select
+                  options={reportTypeOptions}
+                  style={{ cursor: "pointer" }}
+                  showSearch
+                  allowClear
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -1092,6 +1097,7 @@ const AdminReports = () => {
                 <Form.Item name="subsidiary_id" label="Subsidiary">
                   <Select
                     options={filteredSubsidiariesOptions}
+                    style={{ cursor: "pointer" }}
                     showSearch
                     allowClear
                     disabled={!currentCustomerOption}
@@ -1110,6 +1116,7 @@ const AdminReports = () => {
                 <Dragger
                   className={styles.reportFileDragger}
                   multiple={false}
+                  name="file"
                   maxCount={1}
                   accept=".pdf,.doc,.docx,.csv"
                   customRequest={onCustomRequest}

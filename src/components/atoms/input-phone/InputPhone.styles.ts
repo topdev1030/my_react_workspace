@@ -4,7 +4,7 @@ import { Theme } from "@/theme";
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
     display: "inline-block",
-    fontFamily: "DM Sans",
+    fontFamily: "Poppins",
   },
   inputClass: {
     "&.form-control": {

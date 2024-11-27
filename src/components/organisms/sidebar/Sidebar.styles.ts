@@ -20,7 +20,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   logoTitle: {
     marginTop: 5,
     marginLeft: 5,
-    fontSize: "20px !important",
+    fontSize: "19px !important",
     textAlign: "start",
     fontWeight: "400 !important",
   },
@@ -37,7 +37,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     backgroundColor: "transparent",
     color: "#fff",
     justifyContent: "center",
-    fontFamily: "Arial, sans-serif",
+    fontFamily: "Poppins",
     marginTop: 10,
     marginBottom: 30,
   },
@@ -67,6 +67,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
     "& .ant-menu-title-content": {
       textAlign: "start",
       marginLeft: 25,
+    },
+    "& .ant-menu-item-selected": {
+      "& a": {
+        color: "#9f702e",
+      },
     },
   },
   logoutButton: {
