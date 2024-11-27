@@ -90,7 +90,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
       fontSize: 60,
       fontWeight: 700,
       lineHeight: 1.4,
-      color: "FFFFFF",
+      color: "#FFFFFF",
     },
   },
   statsTitle: {
